@@ -22,7 +22,7 @@ const HeroSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left content */}
           <div className="space-y-8 text-center lg:text-left">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight animate-fade-up animation-delay-100">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif leading-tight animate-fade-up animation-delay-100">
               <span className="block">
                 <span className="text-[#3B3129]">Create moments</span>
               </span>
@@ -45,6 +45,10 @@ const HeroSection = () => {
                 See How It Works
               </Button>
             </div>
+
+            <p className="text-sm text-muted-foreground animate-fade-up animation-delay-400">
+              No credit card required • 14-day free trial • Cancel anytime
+            </p>
           </div>
 
           {/* Right content - Photo Grid Collage */}
