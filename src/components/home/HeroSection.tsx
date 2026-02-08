@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 import photo1 from "@/assets/gallery/photo-1.jpg";
 import photo2 from "@/assets/gallery/photo-2.jpg";
@@ -8,112 +10,118 @@ import photo4 from "@/assets/gallery/photo-4.jpg";
 import photo5 from "@/assets/gallery/photo-5.jpg";
 import photo6 from "@/assets/gallery/photo-6.jpg";
 
+const features = [
+  "Galleries",
+  "Print Store",
+  "Marketing Automations",
+  "Slideshows",
+  "Blogs",
+  "AI Search",
+];
+
 const HeroSection = () => {
+  const [currentFeature, setCurrentFeature] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentFeature((prev) => (prev + 1) % features.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-16">
-      {/* Background gradient */}
-      <div className="absolute inset-0 gradient-hero" />
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-20">
+      {/* Subtle background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/10 to-background" />
 
-      {/* Decorative elements */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+      <div className="container mx-auto px-6 relative z-10 text-center">
+        {/* Main headline */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="mb-8"
+        >
+          <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif leading-[1.1] tracking-tight text-foreground">
+            Elevate Your Photography
+            <br />
+            <span className="text-primary/80">to a Successful Business</span>
+          </h1>
+        </motion.div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left content */}
-          <div className="space-y-8 text-center lg:text-left">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif leading-tight animate-fade-up animation-delay-100">
-              <span className="block">
-                <span className="text-[#3B3129]">Create moments</span>
-              </span>
-              <span className="block">
-                <span className="text-[#3B3129]">Share memories</span>
-              </span>
-            </h1>
-
-            <p className="text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 animate-fade-up animation-delay-200">
-              The all-in-one platform for photographers to share galleries, manage events, handle contracts, and grow
-              their business — all in one elegant space.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-up animation-delay-300">
-              <Button variant="hero" size="xl" className="group">
-                Start Free Trial
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button variant="hero-outline" size="xl">
-                See How It Works
-              </Button>
-            </div>
-          </div>
-
-          {/* Right content - Photo Grid Collage */}
-          <div>
-            <div className="grid grid-cols-2 gap-3 lg:gap-4">
-              {/* Top row - 2 larger images */}
-              <div
-                className="relative col-span-1 rounded-2xl overflow-hidden aspect-[4/3] opacity-0 animate-[fade-in_0.6s_ease-out_0.2s_forwards] translate-y-4 group cursor-pointer"
-                style={{ animationFillMode: "forwards" }}
+        {/* Animated features ticker */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="mb-12 h-10 overflow-hidden"
+        >
+          <div className="flex items-center justify-center gap-3 text-lg md:text-xl text-muted-foreground">
+            {features.map((feature, i) => (
+              <motion.span
+                key={feature}
+                className={`transition-all duration-300 ${
+                  i === currentFeature
+                    ? "text-foreground font-medium"
+                    : "opacity-50"
+                }`}
               >
-                <img
-                  src={photo1}
-                  alt="Photography session"
-                  className="w-full h-full object-cover transition-all duration-500 sepia-[.25] saturate-[.85] brightness-[1.02] contrast-[.95] group-hover:scale-105 group-hover:sepia-0 group-hover:saturate-100 group-hover:brightness-100 group-hover:contrast-100"
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-900/10 via-transparent to-amber-800/5 pointer-events-none transition-opacity duration-500 group-hover:opacity-0" />
-              </div>
-              <div
-                className="relative col-span-1 rounded-2xl overflow-hidden aspect-[4/3] opacity-0 animate-[fade-in_0.6s_ease-out_0.35s_forwards] translate-y-4 group cursor-pointer"
-                style={{ animationFillMode: "forwards" }}
-              >
-                <img
-                  src={photo2}
-                  alt="Studio setup"
-                  className="w-full h-full object-cover transition-all duration-500 sepia-[.25] saturate-[.85] brightness-[1.02] contrast-[.95] group-hover:scale-105 group-hover:sepia-0 group-hover:saturate-100 group-hover:brightness-100 group-hover:contrast-100"
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-900/10 via-transparent to-amber-800/5 pointer-events-none transition-opacity duration-500 group-hover:opacity-0" />
-              </div>
-
-              {/* Bottom row - 3 smaller images */}
-              <div className="col-span-2 grid grid-cols-3 gap-3 lg:gap-4">
-                <div
-                  className="relative rounded-2xl overflow-hidden aspect-[3/4] opacity-0 animate-[fade-in_0.6s_ease-out_0.5s_forwards] translate-y-4 group cursor-pointer"
-                  style={{ animationFillMode: "forwards" }}
-                >
-                  <img
-                    src={photo3}
-                    alt="Wedding photography"
-                    className="w-full h-full object-cover transition-all duration-500 sepia-[.25] saturate-[.85] brightness-[1.02] contrast-[.95] group-hover:scale-105 group-hover:sepia-0 group-hover:saturate-100 group-hover:brightness-100 group-hover:contrast-100"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-br from-amber-900/10 via-transparent to-amber-800/5 pointer-events-none transition-opacity duration-500 group-hover:opacity-0" />
-                </div>
-                <div
-                  className="relative rounded-2xl overflow-hidden aspect-[3/4] opacity-0 animate-[fade-in_0.6s_ease-out_0.65s_forwards] translate-y-4 group cursor-pointer"
-                  style={{ animationFillMode: "forwards" }}
-                >
-                  <img
-                    src={photo4}
-                    alt="Portrait photography"
-                    className="w-full h-full object-cover transition-all duration-500 sepia-[.25] saturate-[.85] brightness-[1.02] contrast-[.95] group-hover:scale-105 group-hover:sepia-0 group-hover:saturate-100 group-hover:brightness-100 group-hover:contrast-100"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-br from-amber-900/10 via-transparent to-amber-800/5 pointer-events-none transition-opacity duration-500 group-hover:opacity-0" />
-                </div>
-                <div
-                  className="relative rounded-2xl overflow-hidden aspect-[3/4] opacity-0 animate-[fade-in_0.6s_ease-out_0.8s_forwards] translate-y-4 group cursor-pointer"
-                  style={{ animationFillMode: "forwards" }}
-                >
-                  <img
-                    src={photo5}
-                    alt="Camera lens"
-                    className="w-full h-full object-cover transition-all duration-500 sepia-[.25] saturate-[.85] brightness-[1.02] contrast-[.95] group-hover:scale-105 group-hover:sepia-0 group-hover:saturate-100 group-hover:brightness-100 group-hover:contrast-100"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-br from-amber-900/10 via-transparent to-amber-800/5 pointer-events-none transition-opacity duration-500 group-hover:opacity-0" />
-                </div>
-              </div>
-            </div>
+                {feature}
+                {i < features.length - 1 && (
+                  <span className="ml-3 text-border">|</span>
+                )}
+              </motion.span>
+            ))}
           </div>
-        </div>
+        </motion.div>
+
+        {/* CTA Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className="mb-20"
+        >
+          <Button variant="hero" size="xl" className="group rounded-full px-10">
+            Start for Free
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Button>
+        </motion.div>
+
+        {/* Photo collage */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.8 }}
+          className="max-w-6xl mx-auto"
+        >
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">
+            {[photo1, photo2, photo3, photo4, photo5, photo6].map((photo, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.9 + i * 0.1, duration: 0.5 }}
+                className={`relative overflow-hidden rounded-2xl group cursor-pointer ${
+                  i === 0 || i === 5 ? "col-span-1 md:col-span-1" : "col-span-1"
+                }`}
+              >
+                <div className="aspect-[3/4]">
+                  <img
+                    src={photo}
+                    alt={`Wedding photography ${i + 1}`}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
+
+      {/* Decorative gradient at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none" />
     </section>
   );
 };
