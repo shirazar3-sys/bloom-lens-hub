@@ -15,7 +15,7 @@ const Header = () => {
 
   const navLinks = [
     { label: "Sample Galleries", href: "/gallery" },
-    { label: "Pricing", href: "#pricing" },
+    { label: "Pricing", href: "/pricing" },
   ];
 
   const handleMouseEnter = () => {
