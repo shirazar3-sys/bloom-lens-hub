@@ -165,7 +165,7 @@ const Header = () => {
           <Button variant="ghost" size="sm" className="hidden md:inline-flex text-sm font-medium">
             Login
           </Button>
-          <Button variant="hero" size="sm" className="text-sm font-medium">
+          <Button variant="hero" size="default" className="text-base font-medium">
             Start Free
           </Button>
           
