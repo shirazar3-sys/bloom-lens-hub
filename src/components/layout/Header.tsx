@@ -92,7 +92,7 @@ const Header = () => {
               onMouseLeave={handleMouseLeave}
             >
               <button
-                className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
+                className="flex items-center gap-1.5 px-4 py-2 text-base font-medium text-foreground/80 hover:text-primary transition-colors"
               >
                 Products
                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${productsOpen ? "rotate-180" : ""}`} />
@@ -139,7 +139,7 @@ const Header = () => {
                 <button
                   key={link.label}
                   onClick={() => scrollToSection(link.href)}
-                  className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
+                  className="px-4 py-2 text-base font-medium text-foreground/80 hover:text-primary transition-colors"
                 >
                   {link.label}
                 </button>
@@ -147,7 +147,7 @@ const Header = () => {
                 <Link
                   key={link.label}
                   to={link.href}
-                  className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
+                  className="px-4 py-2 text-base font-medium text-foreground/80 hover:text-primary transition-colors"
                 >
                   {link.label}
                 </Link>
