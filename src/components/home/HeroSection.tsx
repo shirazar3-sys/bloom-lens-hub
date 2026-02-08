@@ -22,7 +22,7 @@ const HeroSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left content */}
           <div className="space-y-8 text-center lg:text-left">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight animate-fade-up animation-delay-100">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif leading-tight animate-fade-up animation-delay-100">
               <span className="block">
                 <span className="text-[#3B3129]">Create moments</span>
               </span>
