@@ -24,41 +24,41 @@ const AnimatedSection = ({ children, className }: { children: React.ReactNode; c
 
 const FeaturesSection = () => {
   return (
-    <section id="features" className="py-24 md:py-32">
+    <section id="features">
       {features.map((feature, index) => {
         const isReversed = index % 2 === 1;
+        const bgColor = index % 2 === 0 ? 'bg-background' : 'bg-secondary';
         
         return (
-          <AnimatedSection
-            key={feature.id}
-            className={`container mx-auto px-6 mb-24 md:mb-32 last:mb-0`}
-          >
-            <div id={feature.id} className="scroll-mt-24">
-              <div className={`flex flex-col ${isReversed ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12 lg:gap-20`}>
-                {/* Content */}
-                <div className="flex-1 text-center lg:text-left">
-                  <span className="text-xs tracking-[0.2em] text-muted-foreground uppercase mb-4 block">
-                    {feature.subtitle}
-                  </span>
-                  <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-light text-foreground mb-6">
-                    {feature.title}
-                  </h2>
-                  <p className="text-muted-foreground text-lg leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
-                    {feature.description}
-                  </p>
-                  <Button variant="outline" className="group">
-                    {feature.cta}
-                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </div>
-                
-                {/* Mockup */}
-                <div className="flex-1 w-full max-w-lg lg:max-w-none">
-                  <FeatureMockup type={feature.mockupType} images={feature.images} />
+          <div key={feature.id} className={`${bgColor} py-24 md:py-32`}>
+            <AnimatedSection className="container mx-auto px-6">
+              <div id={feature.id} className="scroll-mt-24">
+                <div className={`flex flex-col ${isReversed ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12 lg:gap-20`}>
+                  {/* Content */}
+                  <div className="flex-1 text-center lg:text-left">
+                    <span className="text-xs tracking-[0.2em] text-muted-foreground uppercase mb-4 block">
+                      {feature.subtitle}
+                    </span>
+                    <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-light text-foreground mb-6">
+                      {feature.title}
+                    </h2>
+                    <p className="text-muted-foreground text-lg leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
+                      {feature.description}
+                    </p>
+                    <Button variant="outline" className="group">
+                      {feature.cta}
+                      <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </div>
+                  
+                  {/* Mockup */}
+                  <div className="flex-1 w-full max-w-lg lg:max-w-none">
+                    <FeatureMockup type={feature.mockupType} images={feature.images} />
+                  </div>
                 </div>
               </div>
-            </div>
-          </AnimatedSection>
+            </AnimatedSection>
+          </div>
         );
       })}
     </section>
