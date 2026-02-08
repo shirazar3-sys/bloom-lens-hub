@@ -95,17 +95,6 @@ export const features: Feature[] = [
     images: [photo2, photo5, photo6, photo1],
     mockupType: "security",
   },
-  {
-    id: "client-portal",
-    title: "Client Portal",
-    shortTitle: "Client Portal",
-    subtitle: "SEAMLESS CLIENT EXPERIENCE",
-    description:
-      "Keep all client information organized with detailed profiles and communication history. Build stronger relationships with a dedicated portal where clients can view galleries, sign contracts, and make payments.",
-    cta: "See Client Portal",
-    images: [photo2, photo3, photo4, photo5],
-    mockupType: "browser",
-  },
 ];
 
 export const getFeatureById = (id: string): Feature | undefined => {
