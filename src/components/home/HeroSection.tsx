@@ -22,7 +22,7 @@ const HeroSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left content */}
           <div className="space-y-8 text-center lg:text-left">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif leading-tight animate-fade-up animation-delay-100">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight animate-fade-up animation-delay-100">
               <span className="block">
                 <span className="text-[#3B3129]">Create moments</span>
               </span>
@@ -30,11 +30,6 @@ const HeroSection = () => {
                 <span className="text-[#3B3129]">Share memories</span>
               </span>
             </h1>
-
-            <p className="text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 animate-fade-up animation-delay-200">
-              The all-in-one platform for photographers to share galleries, manage events, handle contracts, and grow
-              their business — all in one elegant space.
-            </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-up animation-delay-300">
               <Button variant="hero" size="xl" className="group">
