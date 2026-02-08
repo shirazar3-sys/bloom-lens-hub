@@ -22,10 +22,11 @@ const HeroSection = () => {
           className="mb-8"
         >
           <h1 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-serif leading-[1.1] tracking-tight text-foreground">
-            Capture beauty. Deliver magic.
+            Capture moments. Deliver memories.
           </h1>
           <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Transform every photo delivery into an unforgettable experience. From stunning galleries to seamless workflows, everything you need to wow your clients and grow your brand—all in one beautiful platform.
+            Transform every photo delivery into an unforgettable experience. From stunning galleries to seamless
+            workflows, everything you need to wow your clients and grow your brand—all in one beautiful platform.
           </p>
         </motion.div>
 
