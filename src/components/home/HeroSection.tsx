@@ -33,9 +33,10 @@ const HeroSection = () => {
         duration: 0.8,
         ease: "easeOut"
       }} className="mb-8">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif leading-[1.1] tracking-tight text-foreground">Creat mooments
-Share memories<br />
-            <span className="text-primary/80">to a k,kBusiness</span>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif leading-[1.1] tracking-tight text-foreground">Creat mooments 
+Share memories
+          <br />
+            <span className="text-primary/80"></span>
           </h1>
         </motion.div>
 
