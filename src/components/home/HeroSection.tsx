@@ -24,10 +24,10 @@ const HeroSection = () => {
           <div className="space-y-8 text-center lg:text-left">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight animate-fade-up animation-delay-100">
               <span className="block">
-                <span className="text-[#D1CCD0]">Create</span> <span className="text-[#3B3129]">moments</span>
+                <span className="text-[#3BB129]">Create</span> <span className="text-[#D8CBB5]">moments</span>
               </span>
               <span className="block">
-                <span className="text-[#D1CCD0]">Share</span> <span className="text-[#3B3129]">memories</span>
+                <span className="text-[#3BB129]">Share</span> <span className="text-[#D8CBB5]">memories</span>
               </span>
             </h1>
 
