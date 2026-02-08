@@ -82,9 +82,8 @@ const HeroSection = () => {
           transition={{ delay: 0.6, duration: 0.5 }}
           className="mb-20"
         >
-          <Button variant="hero" size="xl" className="group rounded-full px-10">
-            Start for Free
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          <Button variant="hero" size="sm" className="text-sm font-medium">
+            Start Free
           </Button>
         </motion.div>
 
