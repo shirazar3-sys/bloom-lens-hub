@@ -13,41 +13,36 @@ export default {
   		}
   	},
   	extend: {
-  		fontFamily: {
-  			serif: [
-  				'Lora',
-  				'ui-serif',
-  				'Georgia',
-  				'Cambria',
-  				'Times New Roman',
-  				'Times',
-  				'serif'
-  			],
-  			sans: [
-  				'Inter',
-  				'ui-sans-serif',
-  				'system-ui',
-  				'-apple-system',
-  				'BlinkMacSystemFont',
-  				'Segoe UI',
-  				'Roboto',
-  				'Helvetica Neue',
-  				'Arial',
-  				'Noto Sans',
-  				'sans-serif'
-  			],
-  			mono: [
-  				'Space Mono',
-  				'ui-monospace',
-  				'SFMono-Regular',
-  				'Menlo',
-  				'Monaco',
-  				'Consolas',
-  				'Liberation Mono',
-  				'Courier New',
-  				'monospace'
-  			]
-  		},
+		fontFamily: {
+			montserrat: [
+				'Montserrat',
+				'ui-sans-serif',
+				'system-ui',
+				'sans-serif'
+			],
+			serif: [
+				'Montserrat',
+				'ui-sans-serif',
+				'system-ui',
+				'sans-serif'
+			],
+			sans: [
+				'Montserrat',
+				'ui-sans-serif',
+				'system-ui',
+				'sans-serif'
+			],
+			mono: [
+				'ui-monospace',
+				'SFMono-Regular',
+				'Menlo',
+				'Monaco',
+				'Consolas',
+				'Liberation Mono',
+				'Courier New',
+				'monospace'
+			]
+		},
   		colors: {
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
