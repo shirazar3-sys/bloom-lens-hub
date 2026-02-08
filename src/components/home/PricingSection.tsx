@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Check, X, Sparkles } from "lucide-react";
+import { Check, X, Sparkles, Minus } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
@@ -10,91 +10,132 @@ const plans = [
     name: "Free",
     monthlyPrice: "0",
     yearlyPrice: "0",
-    description: "Perfect to try and explore",
+    description: "Try and explore",
     popular: false,
     cta: "Start Free",
-    features: [
-      "3 active galleries",
-      "5GB storage",
-      "7 days retention",
-      "Mobile-friendly galleries",
-      "Password protection",
-      "Basic watermark",
-    ],
-    notIncluded: [
-      "Photo editing",
-      "Custom branding",
-      "AI features",
-      "Priority support",
-    ],
   },
   {
     name: "Starter",
     monthlyPrice: "69",
     yearlyPrice: "55",
-    description: "For beginner photographers",
+    description: "For beginners",
     popular: false,
     cta: "Choose Starter",
-    features: [
-      "5 active galleries",
-      "30GB storage",
-      "30 days retention",
-      "Mobile-friendly galleries",
-      "Password protection",
-      "Basic watermark",
-      "Photo editing tools",
-      "Branding (logo & colors)",
-      "Original JPG download",
-    ],
-    notIncluded: [
-      "AI Search",
-      "Face Recognition",
-      "Priority support",
-    ],
   },
   {
     name: "Pro",
     monthlyPrice: "119",
     yearlyPrice: "99",
-    description: "Best value for most photographers",
+    description: "Best value",
     popular: true,
     cta: "Choose Pro",
-    features: [
-      "10 active galleries",
-      "100GB storage",
-      "90 days retention",
-      "Everything in Starter",
-      "AI Search (5,000/mo)",
-      "Face Recognition",
-      "Custom domain",
-      "Team collaboration",
-      "Export reports",
-    ],
-    notIncluded: [
-      "24h priority support",
-    ],
   },
   {
     name: "Studio",
     monthlyPrice: "199",
     yearlyPrice: "159",
-    description: "For studios & professionals",
+    description: "For professionals",
     popular: false,
     cta: "Choose Studio",
-    features: [
-      "Unlimited galleries",
-      "500GB storage",
-      "180 days retention",
-      "Everything in Pro",
-      "AI Search (10,000/mo)",
-      "Client management (CRM)",
-      "White-label solution",
-      "API access",
-      "24h priority support",
-    ],
-    notIncluded: [],
   },
 ];
+
+type FeatureValue = boolean | string;
+
+interface FeatureRow {
+  name: string;
+  values: FeatureValue[];
+  isAI?: boolean;
+}
+
+interface FeatureCategory {
+  category: string;
+  features: FeatureRow[];
+}
+
+const featureCategories: FeatureCategory[] = [
+  {
+    category: "Resources",
+    features: [
+      { name: "Active galleries", values: ["3", "5", "10", "Unlimited"] },
+      { name: "Storage", values: ["5GB", "30GB", "100GB", "500GB"] },
+      { name: "Monthly traffic", values: ["10GB", "50GB", "150GB", "500GB"] },
+      { name: "Retention period", values: ["7 days", "30 days", "90 days", "180 days"] },
+    ],
+  },
+  {
+    category: "Gallery Features",
+    features: [
+      { name: "Mobile-friendly gallery", values: [true, true, true, true] },
+      { name: "Public gallery link", values: [true, true, true, true] },
+      { name: "Password protection", values: [true, true, true, true] },
+      { name: "Download options", values: ["View only", "Regular", "Original JPG", "Original JPG"] },
+      { name: "Photo editing tools", values: [false, true, true, true] },
+      { name: "Basic watermark", values: [true, true, true, true] },
+      { name: "Custom watermark", values: [false, false, true, true] },
+    ],
+  },
+  {
+    category: "Branding & Customization",
+    features: [
+      { name: "Custom logo & colors", values: [false, true, true, true] },
+      { name: "Custom domain", values: [false, false, true, true] },
+      { name: "White-label solution", values: [false, false, false, true] },
+    ],
+  },
+  {
+    category: "AI Features",
+    features: [
+      { name: "AI Search", values: [false, false, "5,000/mo", "10,000/mo"], isAI: true },
+      { name: "Face Recognition", values: [false, false, true, true], isAI: true },
+    ],
+  },
+  {
+    category: "Team & Management",
+    features: [
+      { name: "Team / multiple users", values: [false, false, true, true] },
+      { name: "Client management (CRM)", values: [false, false, false, true] },
+      { name: "Export reports", values: [false, false, true, true] },
+    ],
+  },
+  {
+    category: "Support",
+    features: [
+      { name: "Email support", values: [true, true, true, true] },
+      { name: "Priority support", values: [false, false, false, "24h response"] },
+      { name: "Dedicated account manager", values: [false, false, false, true] },
+    ],
+  },
+];
+
+const FeatureCell = ({ value, isAI }: { value: FeatureValue; isAI?: boolean }) => {
+  if (value === true) {
+    return (
+      <div className="flex items-center justify-center">
+        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
+          <Check className="w-3.5 h-3.5 text-primary" />
+        </div>
+      </div>
+    );
+  }
+  if (value === false) {
+    return (
+      <div className="flex items-center justify-center">
+        <Minus className="w-4 h-4 text-muted-foreground/30" />
+      </div>
+    );
+  }
+  return (
+    <div className="flex items-center justify-center gap-1.5">
+      <span className="text-sm font-medium text-foreground">{value}</span>
+      {isAI && (
+        <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-primary/10 text-primary">
+          <Sparkles className="w-2.5 h-2.5" />
+        </span>
+      )}
+    </div>
+  );
+};
 
 const PricingSection = () => {
   const ref = useRef(null);
@@ -113,17 +154,10 @@ const PricingSection = () => {
           className="text-center max-w-3xl mx-auto mb-12"
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-foreground mb-4">
-            Plans That{" "}
-            <span className="relative">
-              <span className="relative z-10">Grow</span>
-              <svg className="absolute -bottom-2 left-0 w-full h-3 text-primary/30" viewBox="0 0 100 12" preserveAspectRatio="none">
-                <path d="M0,8 Q25,0 50,8 T100,8" stroke="currentColor" strokeWidth="4" fill="none" strokeLinecap="round"/>
-              </svg>
-            </span>
-            {" "}With You
+            Compare Plans
           </h2>
           <p className="text-muted-foreground text-lg mb-8">
-            Get it all — client galleries, studio manager, print store — at a price that fits your business.
+            Find the perfect plan for your photography business
           </p>
           
           {/* Billing Toggle */}
@@ -151,117 +185,137 @@ const PricingSection = () => {
           </div>
         </motion.div>
 
-        {/* Pricing Cards */}
-        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5 max-w-7xl mx-auto">
-          {plans.map((plan, index) => (
-            <motion.div
-              key={plan.name}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              className={`relative rounded-3xl overflow-hidden ${
-                plan.popular 
-                  ? 'bg-foreground text-background ring-4 ring-primary/20' 
-                  : 'bg-background border border-border'
-              }`}
-            >
-              {/* Popular Badge */}
-              {plan.popular && (
-                <div className="absolute top-0 left-0 right-0 py-2 bg-primary text-center">
-                  <span className="text-xs font-bold tracking-wide text-primary-foreground uppercase flex items-center justify-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    Most Popular
-                  </span>
-                </div>
-              )}
-              
-              <div className={`p-7 ${plan.popular ? 'pt-12' : ''}`}>
-                {/* Plan Name */}
-                <h3 className={`text-xl font-serif mb-1 ${plan.popular ? 'text-background' : 'text-foreground'}`}>
-                  {plan.name}
-                </h3>
-                <p className={`text-sm mb-5 ${plan.popular ? 'text-background/70' : 'text-muted-foreground'}`}>
-                  {plan.description}
-                </p>
-                
-                {/* Price */}
-                <div className="mb-6">
-                  <div className="flex items-baseline gap-1">
-                    <span className={`text-5xl font-serif ${plan.popular ? 'text-background' : 'text-foreground'}`}>
-                      ₪{isYearly ? plan.yearlyPrice : plan.monthlyPrice}
-                    </span>
-                    {plan.monthlyPrice !== "0" && (
-                      <span className={`text-sm ${plan.popular ? 'text-background/60' : 'text-muted-foreground'}`}>
-                        /mo
-                      </span>
-                    )}
-                  </div>
-                  {isYearly && plan.monthlyPrice !== "0" && (
-                    <p className={`text-xs mt-1 ${plan.popular ? 'text-background/50' : 'text-muted-foreground'}`}>
-                      Billed ₪{parseInt(plan.yearlyPrice) * 12}/year
-                    </p>
-                  )}
-                </div>
-                
-                {/* CTA Button */}
-                <Button 
-                  variant={plan.popular ? "secondary" : "outline"}
-                  className={`w-full rounded-xl py-5 mb-6 font-medium ${
-                    plan.popular 
-                      ? 'bg-background text-foreground hover:bg-background/90' 
-                      : ''
-                  }`}
-                  size="lg"
-                >
-                  {plan.cta}
-                </Button>
-                
-                {/* Features */}
-                <div className="space-y-3">
-                  {plan.features.map((feature) => (
-                    <div key={feature} className="flex items-start gap-3">
-                      <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
-                        plan.popular ? 'bg-background/20' : 'bg-primary/10'
-                      }`}>
-                        <Check className={`w-3 h-3 ${plan.popular ? 'text-background' : 'text-primary'}`} />
-                      </div>
-                      <span className={`text-sm ${plan.popular ? 'text-background/90' : 'text-foreground'}`}>
-                        {feature}
-                      </span>
-                    </div>
-                  ))}
-                  
-                  {plan.notIncluded.map((feature) => (
-                    <div key={feature} className="flex items-start gap-3">
-                      <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
-                        plan.popular ? 'bg-background/10' : 'bg-muted'
-                      }`}>
-                        <X className={`w-3 h-3 ${plan.popular ? 'text-background/40' : 'text-muted-foreground/40'}`} />
-                      </div>
-                      <span className={`text-sm ${plan.popular ? 'text-background/40' : 'text-muted-foreground/50'}`}>
-                        {feature}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-        
-        {/* Bottom CTA */}
-        <motion.div 
+        {/* Comparison Table */}
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-16"
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="relative max-w-6xl mx-auto"
         >
-          <p className="text-muted-foreground mb-4">
-            Not sure which plan is right for you?
-          </p>
-          <Button variant="link" className="text-primary font-medium">
-            Compare all features →
-          </Button>
+          <div className="overflow-x-auto rounded-2xl border border-border bg-background shadow-lg">
+            <table className="w-full min-w-[800px]">
+              {/* Header with Plans */}
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="text-left p-6 bg-muted/30 w-[240px] sticky left-0 z-10">
+                    <span className="text-sm font-medium text-muted-foreground">Features</span>
+                  </th>
+                  {plans.map((plan) => (
+                    <th 
+                      key={plan.name} 
+                      className={`p-6 text-center ${plan.popular ? 'bg-primary text-primary-foreground' : 'bg-muted/30'}`}
+                    >
+                      {plan.popular && (
+                        <div className="flex items-center justify-center gap-1 mb-2">
+                          <Sparkles className="w-3.5 h-3.5" />
+                          <span className="text-xs font-semibold uppercase tracking-wide">Most Popular</span>
+                        </div>
+                      )}
+                      <div className={`text-xl font-serif mb-1 ${plan.popular ? 'text-primary-foreground' : 'text-foreground'}`}>
+                        {plan.name}
+                      </div>
+                      <div className={`text-sm mb-3 ${plan.popular ? 'text-primary-foreground/70' : 'text-muted-foreground'}`}>
+                        {plan.description}
+                      </div>
+                      <div className="mb-4">
+                        <span className={`text-3xl font-serif ${plan.popular ? 'text-primary-foreground' : 'text-foreground'}`}>
+                          ₪{isYearly ? plan.yearlyPrice : plan.monthlyPrice}
+                        </span>
+                        {plan.monthlyPrice !== "0" && (
+                          <span className={`text-sm ${plan.popular ? 'text-primary-foreground/60' : 'text-muted-foreground'}`}>
+                            /mo
+                          </span>
+                        )}
+                      </div>
+                      <Button 
+                        variant={plan.popular ? "secondary" : "outline"}
+                        size="sm"
+                        className={`w-full rounded-lg ${plan.popular ? 'bg-background text-foreground hover:bg-background/90' : ''}`}
+                      >
+                        {plan.cta}
+                      </Button>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              
+              {/* Feature Rows */}
+              <tbody>
+                {featureCategories.map((category, catIndex) => (
+                  <>
+                    {/* Category Header */}
+                    <tr key={category.category} className="border-b border-border">
+                      <td 
+                        colSpan={5} 
+                        className="p-4 bg-secondary/50 sticky left-0"
+                      >
+                        <span className="text-xs font-bold tracking-[0.15em] text-muted-foreground uppercase">
+                          {category.category}
+                        </span>
+                      </td>
+                    </tr>
+                    
+                    {/* Features in Category */}
+                    {category.features.map((feature, featureIndex) => (
+                      <tr 
+                        key={feature.name} 
+                        className={`border-b border-border/50 ${
+                          featureIndex % 2 === 0 ? 'bg-background' : 'bg-muted/20'
+                        }`}
+                      >
+                        <td className="p-4 sticky left-0 bg-inherit">
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm text-foreground">{feature.name}</span>
+                            {feature.isAI && (
+                              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-primary/10 text-primary">
+                                <Sparkles className="w-2.5 h-2.5 mr-0.5" />
+                                AI
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                        {feature.values.map((value, i) => (
+                          <td 
+                            key={i} 
+                            className={`p-4 ${plans[i]?.popular ? 'bg-primary/5' : ''}`}
+                          >
+                            <FeatureCell value={value} isAI={feature.isAI} />
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </>
+                ))}
+              </tbody>
+              
+              {/* Footer with CTAs */}
+              <tfoot>
+                <tr className="border-t border-border">
+                  <td className="p-6 bg-muted/30 sticky left-0"></td>
+                  {plans.map((plan) => (
+                    <td 
+                      key={plan.name} 
+                      className={`p-6 text-center ${plan.popular ? 'bg-primary/5' : ''}`}
+                    >
+                      <Button 
+                        variant={plan.popular ? "hero" : "outline"}
+                        className="w-full rounded-xl"
+                      >
+                        {plan.cta}
+                      </Button>
+                    </td>
+                  ))}
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          
+          {/* Scroll hint for mobile */}
+          <div className="mt-4 text-center xl:hidden">
+            <span className="text-xs text-muted-foreground">
+              ← Scroll horizontally to see all plans →
+            </span>
+          </div>
         </motion.div>
       </div>
     </section>
