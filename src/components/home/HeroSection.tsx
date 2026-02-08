@@ -45,10 +45,6 @@ const HeroSection = () => {
                 See How It Works
               </Button>
             </div>
-
-            <p className="text-sm text-muted-foreground animate-fade-up animation-delay-400">
-              No credit card required • 14-day free trial • Cancel anytime
-            </p>
           </div>
 
           {/* Right content - Photo Grid Collage */}
