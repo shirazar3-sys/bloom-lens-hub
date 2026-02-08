@@ -14,20 +14,18 @@ export default {
   	},
   	extend: {
 		fontFamily: {
-			montserrat: [
-				'Montserrat',
-				'ui-sans-serif',
-				'system-ui',
-				'sans-serif'
+			display: [
+				'Cormorant Garamond',
+				'Georgia',
+				'serif'
 			],
 			serif: [
-				'Montserrat',
-				'ui-sans-serif',
-				'system-ui',
-				'sans-serif'
+				'Cormorant Garamond',
+				'Georgia',
+				'serif'
 			],
 			sans: [
-				'Montserrat',
+				'DM Sans',
 				'ui-sans-serif',
 				'system-ui',
 				'sans-serif'

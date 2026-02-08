@@ -4,6 +4,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 
 const faqs = [
   {
@@ -33,36 +36,53 @@ const faqs = [
 ];
 
 const FAQSection = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
   return (
-    <section className="py-24">
+    <section id="faq" className="py-24 md:py-32">
       <div className="container mx-auto px-6">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
+        <motion.div 
+          ref={ref}
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-2xl mx-auto mb-20"
+        >
+          <span className="text-xs font-medium tracking-[0.2em] text-muted-foreground uppercase mb-4 block">
+            GOT QUESTIONS?
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-foreground mb-6">
             Frequently asked questions
           </h2>
           <p className="text-muted-foreground text-lg">
             Everything you need to know about LensFlow.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="max-w-3xl mx-auto">
+        <motion.div 
+          className="max-w-3xl mx-auto"
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
               <AccordionItem 
                 key={index} 
                 value={`item-${index}`}
-                className="bg-card border border-border/50 rounded-xl px-6 data-[state=open]:shadow-card"
+                className="bg-card border-0 rounded-2xl px-8 shadow-lg data-[state=open]:shadow-xl transition-shadow"
               >
-                <AccordionTrigger className="text-left font-serif text-lg hover:no-underline py-6">
+                <AccordionTrigger className="text-left font-serif text-xl hover:no-underline py-7 [&[data-state=open]>svg]:rotate-45">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6 leading-relaxed">
+                <AccordionContent className="text-muted-foreground pb-7 leading-relaxed text-base">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
