@@ -56,7 +56,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.9 + i * 0.1, duration: 0.5 }}
-                className="relative overflow-hidden rounded-2xl group cursor-pointer"
+                className="relative overflow-hidden rounded-lg group cursor-pointer"
               >
                 <div className="aspect-[3/4]">
                   <img
