@@ -6,15 +6,16 @@ import photo3 from "@/assets/gallery/photo-3.jpg";
 import photo4 from "@/assets/gallery/photo-4.jpg";
 import photo5 from "@/assets/gallery/photo-5.jpg";
 import photo6 from "@/assets/gallery/photo-6.jpg";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const HeroSection = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-20">
-      {/* Subtle background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/10 to-background" />
 
       <div className="container mx-auto px-6 relative z-10 text-center">
-        {/* Main headline */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -22,15 +23,13 @@ const HeroSection = () => {
           className="mb-8"
         >
           <h1 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-serif leading-[1.1] tracking-tight text-foreground">
-            Capture moments. Deliver memories.
+            {t.hero.headline}
           </h1>
           <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Transform every photo delivery into an unforgettable experience. From stunning galleries to seamless
-            workflows, everything you need to wow your clients and grow your brand—all in one beautiful platform.
+            {t.hero.description}
           </p>
         </motion.div>
 
-        {/* CTA Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -38,11 +37,10 @@ const HeroSection = () => {
           className="mb-20"
         >
           <Button variant="hero" size="lg" className="font-medium">
-            Start Free
+            {t.hero.cta}
           </Button>
         </motion.div>
 
-        {/* Photo collage */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -72,7 +70,6 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* Decorative gradient at bottom */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none" />
     </section>
   );
