@@ -5,71 +5,77 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo.png";
 import { features } from "@/components/home/features/FeatureData";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
   const productsRef = useRef<HTMLDivElement>(null);
+  const langRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const langTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const location = useLocation();
+  const { language, setLanguage, t } = useLanguage();
+
+  const featureKeys = [
+    "galleries", "aiSearch", "studioManagement", "photographerIndex",
+    "photographerCommunity", "photoEditing", "security",
+  ] as const;
 
   const navLinks = [
-    { label: "Sample Galleries", href: "/gallery" },
-    { label: "Pricing", href: "/pricing" },
-    { label: "FAQ", href: "#faq" },
+    { label: t.header.sampleGalleries, href: "/gallery" },
+    { label: t.header.pricing, href: "/pricing" },
+    { label: t.header.faq, href: "#faq" },
   ];
 
   const handleMouseEnter = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setProductsOpen(true);
   };
 
   const handleMouseLeave = () => {
-    timeoutRef.current = setTimeout(() => {
-      setProductsOpen(false);
-    }, 150);
+    timeoutRef.current = setTimeout(() => setProductsOpen(false), 150);
+  };
+
+  const handleLangEnter = () => {
+    if (langTimeoutRef.current) clearTimeout(langTimeoutRef.current);
+    setLangOpen(true);
+  };
+
+  const handleLangLeave = () => {
+    langTimeoutRef.current = setTimeout(() => setLangOpen(false), 150);
   };
 
   useEffect(() => {
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (langTimeoutRef.current) clearTimeout(langTimeoutRef.current);
     };
   }, []);
 
   const scrollToSection = (href: string) => {
     setMobileMenuOpen(false);
     setProductsOpen(false);
-    
     if (href.startsWith("#")) {
-      // If we're not on the home page, navigate there first
       if (location.pathname !== "/") {
         window.location.href = "/" + href;
         return;
       }
       const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
+      if (element) element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   const scrollToFeature = (featureId: string) => {
     setMobileMenuOpen(false);
     setProductsOpen(false);
-    
     if (location.pathname !== "/") {
       window.location.href = "/#" + featureId;
       return;
     }
-    
     const element = document.getElementById(featureId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -77,7 +83,6 @@ const Header = () => {
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
         {/* Left side: Logo + Navigation */}
         <div className="flex items-center gap-10">
-          {/* Logo */}
           <Link to="/" className="flex-shrink-0">
             <img src={logo} alt="Pixroll" className="h-10 w-auto" />
           </Link>
@@ -85,16 +90,14 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
             {/* Products Dropdown */}
-            <div 
+            <div
               ref={productsRef}
               className="relative"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <button
-                className="flex items-center gap-1.5 px-4 py-2 text-base font-medium text-foreground/80 hover:text-[#D8CBB5] transition-colors"
-              >
-                Products
+              <button className="flex items-center gap-1.5 px-4 py-2 text-base font-medium text-foreground/80 hover:text-[#D8CBB5] transition-colors">
+                {t.header.products}
                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${productsOpen ? "rotate-180" : ""}`} />
               </button>
 
@@ -105,7 +108,7 @@ const Header = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 mt-2 w-80 bg-background border border-border rounded-2xl shadow-xl overflow-hidden z-50"
+                    className="absolute top-full start-0 mt-2 w-80 bg-background border border-border rounded-2xl shadow-xl overflow-hidden z-50"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -117,13 +120,13 @@ const Header = () => {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.03, duration: 0.2 }}
                           onClick={() => scrollToFeature(feature.id)}
-                          className="w-full text-left px-4 py-3 rounded-xl hover:bg-muted/50 transition-colors group"
+                          className="w-full text-start px-4 py-3 rounded-xl hover:bg-muted/50 transition-colors group"
                         >
                           <div className="font-medium text-foreground text-sm group-hover:text-primary transition-colors">
-                            {feature.shortTitle}
+                            {t.features[featureKeys[index] as keyof typeof t.features]?.shortTitle}
                           </div>
                           <div className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
-                            {feature.description.split('.')[0]}
+                            {t.features[featureKeys[index] as keyof typeof t.features]?.description.split('.')[0]}
                           </div>
                         </motion.button>
                       ))}
@@ -158,21 +161,56 @@ const Header = () => {
 
         {/* Right side actions */}
         <div className="flex items-center gap-2">
-          <button className="hidden lg:flex items-center gap-1 text-sm text-foreground/60 hover:text-foreground transition-colors px-3 py-2">
-            <Globe className="w-4 h-4" />
-            <span className="text-xs">EN</span>
-          </button>
+          {/* Language Switcher */}
+          <div
+            ref={langRef}
+            className="relative hidden lg:block"
+            onMouseEnter={handleLangEnter}
+            onMouseLeave={handleLangLeave}
+          >
+            <button className="flex items-center gap-1 text-sm text-foreground/60 hover:text-foreground transition-colors px-3 py-2">
+              <Globe className="w-4 h-4" />
+              <span className="text-xs">{language === "en" ? "EN" : "עב"}</span>
+            </button>
+            <AnimatePresence>
+              {langOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 5 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute top-full end-0 mt-1 w-36 bg-background border border-border rounded-xl shadow-xl overflow-hidden z-50"
+                  onMouseEnter={handleLangEnter}
+                  onMouseLeave={handleLangLeave}
+                >
+                  <button
+                    onClick={() => { setLanguage("en"); setLangOpen(false); }}
+                    className={`w-full text-start px-4 py-2.5 text-sm hover:bg-muted/50 transition-colors ${language === "en" ? "font-semibold text-primary" : "text-foreground/70"}`}
+                  >
+                    🇺🇸 English
+                  </button>
+                  <button
+                    onClick={() => { setLanguage("he"); setLangOpen(false); }}
+                    className={`w-full text-start px-4 py-2.5 text-sm hover:bg-muted/50 transition-colors ${language === "he" ? "font-semibold text-primary" : "text-foreground/70"}`}
+                  >
+                    🇮🇱 עברית
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
           <Button variant="ghost" size="sm" className="hidden md:inline-flex text-sm font-medium">
-            Login
+            {t.header.login}
           </Button>
           <Button variant="hero" size="default" className="text-base font-medium">
-            Start Free
+            {t.header.startFree}
           </Button>
-          
+
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-foreground hover:text-primary transition-colors ml-2"
+            className="lg:hidden p-2 text-foreground hover:text-primary transition-colors ms-2"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -189,24 +227,42 @@ const Header = () => {
             className="lg:hidden bg-background border-t border-border/30 overflow-hidden"
           >
             <nav className="container mx-auto px-6 py-6">
+              {/* Language switch mobile */}
+              <div className="flex gap-2 mb-4">
+                <button
+                  onClick={() => setLanguage("en")}
+                  className={`px-3 py-1.5 text-sm rounded-lg border transition-colors ${language === "en" ? "border-primary bg-primary/10 text-primary font-medium" : "border-border text-foreground/60"}`}
+                >
+                  🇺🇸 EN
+                </button>
+                <button
+                  onClick={() => setLanguage("he")}
+                  className={`px-3 py-1.5 text-sm rounded-lg border transition-colors ${language === "he" ? "border-primary bg-primary/10 text-primary font-medium" : "border-border text-foreground/60"}`}
+                >
+                  🇮🇱 עב
+                </button>
+              </div>
+
               {/* Products section */}
               <div className="mb-4">
                 <div className="text-xs font-medium tracking-[0.15em] text-muted-foreground uppercase mb-3 px-2">
-                  Products
+                  {t.header.products}
                 </div>
                 <div className="space-y-1">
-                  {features.map((feature) => (
+                  {features.map((feature, index) => (
                     <button
                       key={feature.id}
                       onClick={() => scrollToFeature(feature.id)}
-                      className="w-full text-left px-2 py-2.5 text-foreground/80 hover:text-foreground transition-colors"
+                      className="w-full text-start px-2 py-2.5 text-foreground/80 hover:text-foreground transition-colors"
                     >
-                      <div className="font-medium text-sm">{feature.shortTitle}</div>
+                      <div className="font-medium text-sm">
+                        {t.features[featureKeys[index] as keyof typeof t.features]?.shortTitle}
+                      </div>
                     </button>
                   ))}
                 </div>
               </div>
-              
+
               {/* Other links */}
               <div className="border-t border-border/30 pt-4 space-y-1">
                 {navLinks.map((link) =>
@@ -214,7 +270,7 @@ const Header = () => {
                     <button
                       key={link.label}
                       onClick={() => scrollToSection(link.href)}
-                      className="w-full text-left px-2 py-2.5 text-lg font-medium text-foreground/80 hover:text-foreground transition-colors"
+                      className="w-full text-start px-2 py-2.5 text-lg font-medium text-foreground/80 hover:text-foreground transition-colors"
                     >
                       {link.label}
                     </button>
@@ -230,14 +286,14 @@ const Header = () => {
                   )
                 )}
               </div>
-              
+
               {/* CTA */}
               <div className="pt-6 border-t border-border/30 mt-4 flex gap-3">
                 <Button variant="ghost" className="flex-1">
-                  Login
+                  {t.header.login}
                 </Button>
                 <Button variant="hero" className="flex-1">
-                  Start Free
+                  {t.header.startFree}
                 </Button>
               </div>
             </nav>
