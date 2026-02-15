@@ -40,7 +40,7 @@ const FeaturesSection = () => {
 
         return (
           <div key={feature.id} className={`${bgColor} py-24 md:py-32`}>
-            <AnimatedSection className="container mx-auto px-6">
+            <AnimatedSection className="w-full max-w-[1600px] mx-auto px-4 md:px-8">
               <div id={feature.id} className="scroll-mt-24">
                 <div className={`flex flex-col ${isReversed ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12 lg:gap-20`}>
                   {/* Content */}
