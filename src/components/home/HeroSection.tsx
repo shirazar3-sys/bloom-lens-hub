@@ -11,11 +11,10 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import { useRef } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 
 const photos = [photo1, photo2, photo3, photo4, photo5, photo6];
 
@@ -23,6 +22,21 @@ const HeroSection = () => {
   const { t } = useLanguage();
   const autoplayPlugin = useRef(
     Autoplay({ delay: 3500, stopOnInteraction: false })
+  );
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap());
+    api.on("select", () => setCurrent(api.selectedScrollSnap()));
+  }, [api]);
+
+  const scrollTo = useCallback(
+    (index: number) => api?.scrollTo(index),
+    [api]
   );
 
   return (
@@ -48,7 +62,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.5 }}
-          className="mb-16"
+          className="mb-12"
         >
           <Button variant="hero" size="lg" className="font-medium">
             {t.hero.cta}
@@ -59,23 +73,21 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.8 }}
-          className="max-w-6xl mx-auto"
+          className="max-w-5xl mx-auto"
         >
           <Carousel
-            opts={{
-              align: "center",
-              loop: true,
-            }}
+            opts={{ align: "center", loop: true }}
             plugins={[autoplayPlugin.current]}
+            setApi={setApi}
             className="w-full"
           >
-            <CarouselContent className="-ml-4">
+            <CarouselContent className="-ml-3">
               {photos.map((photo, i) => (
                 <CarouselItem
                   key={i}
-                  className="pl-4 basis-[80%] sm:basis-[45%] md:basis-[35%]"
+                  className="pl-3 basis-[60%] sm:basis-[38%] md:basis-[28%]"
                 >
-                  <div className="relative overflow-hidden rounded-2xl group cursor-pointer">
+                  <div className="relative overflow-hidden rounded-xl group cursor-pointer">
                     <div className="aspect-[3/4]">
                       <img
                         src={photo}
@@ -88,9 +100,23 @@ const HeroSection = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="hidden md:flex -left-4" />
-            <CarouselNext className="hidden md:flex -right-4" />
           </Carousel>
+
+          {/* Dot indicators */}
+          <div className="flex justify-center gap-2 mt-6">
+            {Array.from({ length: count }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => scrollTo(i)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  i === current
+                    ? "w-6 bg-foreground"
+                    : "w-2 bg-foreground/25 hover:bg-foreground/50"
+                }`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
         </motion.div>
       </div>
 
