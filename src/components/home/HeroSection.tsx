@@ -40,7 +40,7 @@ const HeroSection = () => {
   );
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-20">
+    <section className="relative flex flex-col items-center overflow-hidden pt-28 pb-16">
       {/* Layered warm background */}
       <div className="absolute inset-0 bg-secondary" />
       <div className="absolute inset-0 opacity-40" style={{
