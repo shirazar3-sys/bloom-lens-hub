@@ -103,7 +103,7 @@ const Gallery = () => {
             {photos.map((photo, index) => (
               <div
                 key={photo.id}
-                className={`group relative overflow-hidden rounded-xl bg-muted cursor-pointer ${photo.orientation === "portrait" && gridSize === "large" ? "row-span-2" : ""}`}
+                className={`group relative overflow-hidden rounded bg-muted cursor-pointer ${photo.orientation === "portrait" && gridSize === "large" ? "row-span-2" : ""}`}
                 onClick={() => openLightbox(photo.id)}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
@@ -139,7 +139,7 @@ const Gallery = () => {
           <Button variant="ghost" size="icon" className="absolute end-4 top-1/2 -translate-y-1/2 text-background hover:bg-background/10" onClick={(e) => { e.stopPropagation(); navigatePhoto("next"); }}>
             <ChevronRight className="w-8 h-8" />
           </Button>
-          <img src={currentPhoto.src} alt={currentPhoto.title} className="max-w-[90vw] max-h-[85vh] object-contain rounded-lg" onClick={(e) => e.stopPropagation()} />
+          <img src={currentPhoto.src} alt={currentPhoto.title} className="max-w-[90vw] max-h-[85vh] object-contain rounded" onClick={(e) => e.stopPropagation()} />
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4">
             <Button variant="ghost" size="sm" className="text-background hover:bg-background/10 gap-2" onClick={(e) => { e.stopPropagation(); toggleFavorite(currentPhoto.id, e); }}>
               <Heart className={`w-5 h-5 ${favorites.has(currentPhoto.id) ? "fill-primary text-primary" : ""}`} />

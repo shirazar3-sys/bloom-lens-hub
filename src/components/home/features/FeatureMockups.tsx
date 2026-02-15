@@ -1,3 +1,4 @@
+import React from "react";
 import { motion } from "framer-motion";
 import { Search, Shield, Lock, Eye, Users, Camera, Wand2, Share2 } from "lucide-react";
 
@@ -5,7 +6,7 @@ import { Search, Shield, Lock, Eye, Users, Camera, Wand2, Share2 } from "lucide-
 export const GalleryGridMockup = ({ images }: { images: string[] }) => (
   <div className="relative">
     <motion.div 
-      className="bg-card rounded-3xl shadow-2xl p-6 max-w-lg overflow-hidden"
+      className="bg-card rounded-sm shadow-2xl p-6 max-w-lg overflow-hidden"
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.3 }}
     >
@@ -14,48 +15,45 @@ export const GalleryGridMockup = ({ images }: { images: string[] }) => (
           <img 
             src={images[0]} 
             alt="Gallery preview" 
-            className="w-full h-full object-cover rounded-2xl aspect-square"
+            className="w-full h-full object-cover rounded-sm aspect-square"
           />
         </div>
         <img 
           src={images[1]} 
           alt="Gallery preview" 
-          className="w-full object-cover rounded-2xl aspect-square"
+          className="w-full object-cover rounded-sm aspect-square"
         />
         <img 
           src={images[2]} 
           alt="Gallery preview" 
-          className="w-full object-cover rounded-2xl aspect-square"
+          className="w-full object-cover rounded-sm aspect-square"
         />
       </div>
-      <div className="flex items-center justify-center gap-6 mt-5 py-3 border-t border-border/30">
-        {["heart", "share", "download"].map((icon) => (
-          <button key={icon} className="p-2 text-muted-foreground hover:text-foreground transition-colors">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {icon === "heart" && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />}
-              {icon === "share" && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />}
-              {icon === "download" && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />}
-            </svg>
+      <div className="mt-5 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <button className="p-2 rounded-full hover:bg-muted/50 transition-colors">
+            <Eye className="w-4 h-4 text-muted-foreground" />
           </button>
-        ))}
+          <button className="p-2 rounded-full hover:bg-muted/50 transition-colors">
+            <Share2 className="w-4 h-4 text-muted-foreground" />
+          </button>
+        </div>
+        <button className="bg-primary text-primary-foreground rounded-full px-4 py-2 text-sm font-medium">
+          View gallery
+        </button>
       </div>
     </motion.div>
     <motion.div 
-      className="absolute -bottom-8 -left-8 bg-card rounded-2xl shadow-xl p-5 w-52"
+      className="absolute -bottom-8 -left-8 bg-card rounded-sm shadow-xl p-5 w-52"
       initial={{ opacity: 0, x: -20 }}
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ delay: 0.3, duration: 0.5 }}
     >
-      <div className="text-sm font-medium text-foreground mb-2">Gallery Stats</div>
-      <div className="flex gap-4 text-center">
-        <div>
-          <div className="text-2xl font-serif text-primary">248</div>
-          <div className="text-xs text-muted-foreground">Photos</div>
-        </div>
-        <div>
-          <div className="text-2xl font-serif text-primary">12</div>
-          <div className="text-xs text-muted-foreground">Downloads</div>
-        </div>
+      <div className="text-sm font-medium text-foreground mb-2">
+        352 photos
+      </div>
+      <div className="text-xs text-muted-foreground">
+        Last updated June 8, 2024
       </div>
     </motion.div>
   </div>
@@ -65,7 +63,7 @@ export const GalleryGridMockup = ({ images }: { images: string[] }) => (
 export const AISearchMockup = ({ images }: { images: string[] }) => (
   <div className="relative">
     <motion.div 
-      className="bg-card rounded-3xl shadow-2xl p-6 max-w-lg overflow-hidden"
+      className="bg-card rounded-sm shadow-2xl p-6 max-w-lg overflow-hidden"
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.3 }}
     >
@@ -77,7 +75,7 @@ export const AISearchMockup = ({ images }: { images: string[] }) => (
         {images.map((img, i) => (
           <motion.div 
             key={i}
-            className="relative aspect-square rounded-xl overflow-hidden"
+            className="relative aspect-square rounded-sm overflow-hidden"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ delay: i * 0.1, duration: 0.3 }}
@@ -92,7 +90,7 @@ export const AISearchMockup = ({ images }: { images: string[] }) => (
       </div>
     </motion.div>
     <motion.div 
-      className="absolute -top-6 -right-6 bg-card rounded-2xl shadow-xl p-4"
+      className="absolute -top-6 -right-6 bg-card rounded-sm shadow-xl p-4"
       initial={{ opacity: 0, y: -20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.4, duration: 0.5 }}
@@ -116,13 +114,13 @@ export const CardsMockup = ({ images }: { images: string[] }) => (
       {["Wedding Shoot", "Portrait Session", "Contract Review"].map((event, i) => (
         <motion.div 
           key={i} 
-          className="bg-card rounded-2xl shadow-xl p-5 flex items-center gap-5"
+          className="bg-card rounded-sm shadow-xl p-5 flex items-center gap-5"
           style={{ transform: `translateX(${i * 25}px)` }}
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: i * 25 }}
           transition={{ delay: i * 0.15, duration: 0.5 }}
         >
-          <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+          <div className="w-16 h-16 rounded-sm overflow-hidden flex-shrink-0">
             <img src={images[i % images.length]} alt="" className="w-full h-full object-cover" />
           </div>
           <div className="flex-1 min-w-0">
@@ -138,7 +136,7 @@ export const CardsMockup = ({ images }: { images: string[] }) => (
       ))}
     </div>
     <motion.div 
-      className="absolute -top-6 -right-6 bg-card rounded-2xl shadow-xl p-5 w-60"
+      className="absolute -top-6 -right-6 bg-card rounded-sm shadow-xl p-5 w-60"
       initial={{ opacity: 0, y: -20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.4, duration: 0.5 }}
@@ -169,7 +167,7 @@ export const CardsMockup = ({ images }: { images: string[] }) => (
 export const DirectoryMockup = ({ images }: { images: string[] }) => (
   <div className="relative">
     <motion.div 
-      className="bg-card rounded-3xl shadow-2xl p-6 max-w-lg overflow-hidden"
+      className="bg-card rounded-sm shadow-2xl p-6 max-w-lg overflow-hidden"
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.3 }}
     >
@@ -185,7 +183,7 @@ export const DirectoryMockup = ({ images }: { images: string[] }) => (
         {["Sarah Mitchell", "James Chen", "Elena Rodriguez"].map((name, i) => (
           <motion.div 
             key={i}
-            className="flex items-center gap-4 p-3 rounded-xl hover:bg-muted/30 transition-colors"
+            className="flex items-center gap-4 p-3 rounded-sm hover:bg-muted/30 transition-colors"
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.1, duration: 0.3 }}
@@ -208,7 +206,7 @@ export const DirectoryMockup = ({ images }: { images: string[] }) => (
       </div>
     </motion.div>
     <motion.div 
-      className="absolute -bottom-6 -left-6 bg-card rounded-2xl shadow-xl p-4 flex items-center gap-3"
+      className="absolute -bottom-6 -left-6 bg-card rounded-sm shadow-xl p-4 flex items-center gap-3"
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ delay: 0.4, duration: 0.5 }}
@@ -234,7 +232,7 @@ export const CommunityMockup = ({ images }: { images: string[] }) => (
       ].map((cat, i) => (
         <motion.div 
           key={i}
-          className="bg-card rounded-2xl shadow-xl overflow-hidden"
+          className="bg-card rounded-sm shadow-xl overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: i * 0.1, duration: 0.4 }}
@@ -256,7 +254,7 @@ export const CommunityMockup = ({ images }: { images: string[] }) => (
       ))}
     </div>
     <motion.div 
-      className="absolute -bottom-4 -right-4 bg-card rounded-2xl shadow-xl p-4"
+      className="absolute -bottom-4 -right-4 bg-card rounded-sm shadow-xl p-4"
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ delay: 0.5, duration: 0.5 }}
@@ -276,13 +274,13 @@ export const CommunityMockup = ({ images }: { images: string[] }) => (
 export const EditMockup = ({ images }: { images: string[] }) => (
   <div className="relative">
     <motion.div 
-      className="bg-card rounded-3xl shadow-2xl overflow-hidden max-w-lg"
+      className="bg-card rounded-sm shadow-2xl overflow-hidden max-w-lg"
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.3 }}
     >
       <div className="relative">
         <img src={images[0]} alt="" className="w-full h-64 object-cover" />
-        <div className="absolute bottom-4 left-4 right-4 bg-card/90 backdrop-blur-sm rounded-xl p-3">
+        <div className="absolute bottom-4 left-4 right-4 bg-card/90 backdrop-blur-sm rounded-sm p-3">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-medium text-foreground">Brightness</span>
             <span className="text-xs text-muted-foreground">+15</span>
@@ -301,7 +299,7 @@ export const EditMockup = ({ images }: { images: string[] }) => (
         ].map((item, i) => (
           <button 
             key={item.key} 
-            className={`p-3 rounded-xl transition-colors ${
+            className={`p-3 rounded-sm transition-colors ${
               i === 0 ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"
             }`}
           >
@@ -332,7 +330,7 @@ export const EditMockup = ({ images }: { images: string[] }) => (
 export const SecurityMockup = ({ images }: { images: string[] }) => (
   <div className="relative">
     <motion.div 
-      className="bg-card rounded-3xl shadow-2xl p-6 max-w-lg overflow-hidden"
+      className="bg-card rounded-sm shadow-2xl p-6 max-w-lg overflow-hidden"
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.3 }}
     >
@@ -353,7 +351,7 @@ export const SecurityMockup = ({ images }: { images: string[] }) => (
         ].map((item, i) => (
           <motion.div 
             key={i}
-            className="flex items-center justify-between p-4 bg-muted/30 rounded-xl"
+            className="flex items-center justify-between p-4 bg-muted/30 rounded-sm"
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.1, duration: 0.3 }}
@@ -374,7 +372,7 @@ export const SecurityMockup = ({ images }: { images: string[] }) => (
       </div>
     </motion.div>
     <motion.div 
-      className="absolute -bottom-6 -right-6 bg-green-500 text-white rounded-2xl shadow-xl p-4 flex items-center gap-3"
+      className="absolute -bottom-6 -right-6 bg-green-500 text-white rounded-sm shadow-xl p-4 flex items-center gap-3"
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ delay: 0.4, duration: 0.5 }}
@@ -389,7 +387,7 @@ export const SecurityMockup = ({ images }: { images: string[] }) => (
 export const BrowserMockup = ({ images }: { images: string[] }) => (
   <div className="relative">
     <motion.div 
-      className="bg-card rounded-3xl shadow-2xl overflow-hidden max-w-lg"
+      className="bg-card rounded-sm shadow-2xl overflow-hidden max-w-lg"
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.3 }}
     >
@@ -399,7 +397,7 @@ export const BrowserMockup = ({ images }: { images: string[] }) => (
           <div className="w-3.5 h-3.5 rounded-full bg-amber-400" />
           <div className="w-3.5 h-3.5 rounded-full bg-green-400" />
         </div>
-        <div className="flex-1 bg-background/50 rounded-lg px-4 py-2 text-sm text-muted-foreground">
+        <div className="flex-1 bg-background/50 rounded-sm px-4 py-2 text-sm text-muted-foreground">
           gallery.yourbrand.com
         </div>
       </div>
@@ -419,7 +417,7 @@ export const BrowserMockup = ({ images }: { images: string[] }) => (
               key={i} 
               src={img} 
               alt="" 
-              className="w-full aspect-square object-cover rounded-xl"
+              className="w-full aspect-square object-cover rounded-sm"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             />
@@ -428,44 +426,34 @@ export const BrowserMockup = ({ images }: { images: string[] }) => (
       </div>
     </motion.div>
     <motion.div 
-      className="absolute -bottom-6 -left-6 bg-card rounded-2xl shadow-xl p-4 flex items-center gap-4"
+      className="absolute -bottom-6 -left-6 bg-card rounded-sm shadow-xl p-4 flex items-center gap-4"
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ delay: 0.4, duration: 0.5 }}
     >
-      <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center">
-        <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-        </svg>
+      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+        <Camera className="w-5 h-5 text-primary" />
       </div>
       <div>
-        <p className="font-medium text-foreground">Gallery Shared!</p>
-        <p className="text-sm text-muted-foreground">Client notified via email</p>
+        <div className="text-sm font-medium text-foreground">Your Brand</div>
+        <div className="text-xs text-muted-foreground">Custom domain ready</div>
       </div>
     </motion.div>
   </div>
 );
 
-// Component to render the correct mockup based on type
+// Dispatcher component
 export const FeatureMockup = ({ type, images }: { type: string; images: string[] }) => {
-  switch (type) {
-    case "grid":
-      return <GalleryGridMockup images={images} />;
-    case "search":
-      return <AISearchMockup images={images} />;
-    case "cards":
-      return <CardsMockup images={images} />;
-    case "directory":
-      return <DirectoryMockup images={images} />;
-    case "community":
-      return <CommunityMockup images={images} />;
-    case "edit":
-      return <EditMockup images={images} />;
-    case "security":
-      return <SecurityMockup images={images} />;
-    case "browser":
-      return <BrowserMockup images={images} />;
-    default:
-      return <GalleryGridMockup images={images} />;
-  }
+  const mockups: Record<string, React.ComponentType<{ images: string[] }>> = {
+    gallery: GalleryGridMockup,
+    aiSearch: AISearchMockup,
+    cards: CardsMockup,
+    directory: DirectoryMockup,
+    community: CommunityMockup,
+    edit: EditMockup,
+    security: SecurityMockup,
+    browser: BrowserMockup,
+  };
+  const Component = mockups[type] || GalleryGridMockup;
+  return <Component images={images} />;
 };
