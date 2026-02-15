@@ -55,7 +55,7 @@ const HeroSection = () => {
       {/* Bottom fade into white */}
       <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-background to-transparent" />
 
-      <div className="container mx-auto px-6 relative z-10 text-center">
+      <div className="w-full max-w-[1600px] mx-auto px-4 md:px-8 relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -85,7 +85,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.8 }}
-          className="max-w-5xl mx-auto"
+          className="w-full"
         >
           <Carousel
             opts={{ align: "center", loop: true }}
@@ -99,7 +99,7 @@ const HeroSection = () => {
                   key={i}
                   className="pl-3 basis-[60%] sm:basis-[38%] md:basis-[28%]"
                 >
-                  <div className="relative overflow-hidden rounded-xl group cursor-pointer">
+                  <div className="relative overflow-hidden rounded group cursor-pointer">
                     <div className="aspect-[3/4]">
                       <img
                         src={photo}
