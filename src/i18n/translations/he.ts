@@ -234,6 +234,24 @@ export const he: Translations = {
     copyright: "© 2024 LensFlow. כל הזכויות שמורות.",
   },
 
+  // Photographers Index
+  photographers: {
+    title: "מצאו את הצלם שלכם",
+    subtitle: "גלשו בין צלמים מוכשרים לפי התמחות, סגנון ומיקום",
+    searchPlaceholder: "חפשו לפי שם, סגנון או מילת מפתח...",
+    filters: "סינון",
+    type: "סוג",
+    allTypes: "כל הסוגים",
+    location: "מיקום",
+    allLocations: "כל המיקומים",
+    clearAll: "נקה הכל",
+    photographersFound: "צלמים נמצאו",
+    saved: "נשמרו",
+    startingFrom: "החל מ",
+    noResults: "לא נמצאו צלמים",
+    noResultsDescription: "נסו לשנות את הסינון או מילות החיפוש",
+  },
+
   // 404
   notFound: {
     title: "404",

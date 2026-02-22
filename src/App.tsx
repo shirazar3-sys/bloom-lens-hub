@@ -8,6 +8,8 @@ import Index from "./pages/Index";
 import Gallery from "./pages/Gallery";
 import Calendar from "./pages/Calendar";
 import Pricing from "./pages/Pricing";
+import Photographers from "./pages/Photographers";
+import PhotographerProfile from "./pages/PhotographerProfile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +36,8 @@ const App = () => {
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/pricing" element={<Pricing />} />
+            <Route path="/photographers" element={<Photographers />} />
+            <Route path="/photographers/:id" element={<PhotographerProfile />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

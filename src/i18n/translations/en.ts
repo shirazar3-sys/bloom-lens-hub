@@ -232,6 +232,24 @@ export const en = {
     copyright: "© 2024 LensFlow. All rights reserved.",
   },
 
+  // Photographers Index
+  photographers: {
+    title: "Find Your Photographer",
+    subtitle: "Browse talented photographers by specialty, style, and location",
+    searchPlaceholder: "Search by name, style, or keyword...",
+    filters: "Filters",
+    type: "Type",
+    allTypes: "All Types",
+    location: "Location",
+    allLocations: "All Locations",
+    clearAll: "Clear all",
+    photographersFound: "photographers found",
+    saved: "saved",
+    startingFrom: "Starting from",
+    noResults: "No photographers found",
+    noResultsDescription: "Try adjusting your filters or search terms",
+  },
+
   // 404
   notFound: {
     title: "404",
