@@ -16,7 +16,7 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import { useRef, useState, useEffect, useCallback } from "react";
 
-const photos = [photo1, photo2, photo3, photo4, photo5, photo6];
+const photos = [photo1, photo2, photo3, photo4, photo5, photo6, photo1, photo2, photo3, photo4, photo5, photo6];
 
 const HeroSection = () => {
   const { t } = useLanguage();
