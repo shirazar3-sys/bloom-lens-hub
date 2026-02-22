@@ -3,6 +3,7 @@ export const en = {
   header: {
     products: "Products",
     sampleGalleries: "Sample Galleries",
+    photographers: "Photographers",
     pricing: "Pricing",
     faq: "FAQ",
     login: "Login",

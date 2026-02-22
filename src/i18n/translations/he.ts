@@ -5,6 +5,7 @@ export const he: Translations = {
   header: {
     products: "מוצרים",
     sampleGalleries: "גלריות לדוגמה",
+    photographers: "צלמים",
     pricing: "מחירים",
     faq: "שאלות נפוצות",
     login: "התחברות",
