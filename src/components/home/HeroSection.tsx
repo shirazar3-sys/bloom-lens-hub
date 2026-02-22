@@ -16,7 +16,7 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import { useRef, useState, useEffect, useCallback } from "react";
 
-const photos = [photo1, photo2, photo3, photo4, photo5, photo6, photo1, photo2, photo3, photo4, photo5, photo6];
+const photos = [photo1, photo2, photo3, photo4, photo5, photo6];
 
 const HeroSection = () => {
   const { t } = useLanguage();
@@ -97,7 +97,7 @@ const HeroSection = () => {
               {photos.map((photo, i) => (
                 <CarouselItem
                   key={i}
-                  className="pl-3 basis-[60%] sm:basis-[38%] md:basis-[28%]"
+                  className="pl-3 basis-[55%] sm:basis-[33%] md:basis-[22%] lg:basis-[18%]"
                 >
                   <div className="relative overflow-hidden rounded group cursor-pointer">
                     <div className="aspect-[3/4]">
