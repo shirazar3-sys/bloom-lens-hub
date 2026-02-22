@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Search, Shield, Lock, Eye, Users, Camera, Wand2, Share2 } from "lucide-react";
+import { Search, Shield, Lock, Eye, Users, Camera, Wand2, Share2, Calendar, FileText, User } from "lucide-react";
 
 // Grid mockup for galleries
 export const GalleryGridMockup = ({ images }: { images: string[] }) => (
@@ -107,57 +107,109 @@ export const AISearchMockup = ({ images }: { images: string[] }) => (
   </div>
 );
 
-// Calendar/Cards mockup for studio management
+// Studio management dashboard mockup with calendar, clients & invoices
 export const CardsMockup = ({ images }: { images: string[] }) => (
   <div className="relative">
-    <div className="space-y-4 max-w-sm">
-      {["Wedding Shoot", "Portrait Session", "Contract Review"].map((event, i) => (
-        <motion.div 
-          key={i} 
-          className="bg-card rounded-sm shadow-xl p-5 flex items-center gap-5"
-          style={{ transform: `translateX(${i * 25}px)` }}
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: i * 25 }}
-          transition={{ delay: i * 0.15, duration: 0.5 }}
-        >
-          <div className="w-16 h-16 rounded-sm overflow-hidden flex-shrink-0">
-            <img src={images[i % images.length]} alt="" className="w-full h-full object-cover" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <h4 className="font-medium text-foreground">{event}</h4>
-            <p className="text-sm text-muted-foreground">
-              {["Jun 15, 2024", "Jun 18, 2024", "Jun 22, 2024"][i]}
-            </p>
-          </div>
-          <span className={`w-3 h-3 rounded-full ${
-            i === 0 ? "bg-green-500" : i === 1 ? "bg-amber-500" : "bg-primary"
-          }`} />
-        </motion.div>
-      ))}
-    </div>
-    <motion.div 
-      className="absolute -top-6 -right-6 bg-card rounded-sm shadow-xl p-5 w-60"
-      initial={{ opacity: 0, y: -20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.4, duration: 0.5 }}
+    <motion.div
+      className="bg-card rounded-sm shadow-2xl p-5 max-w-lg overflow-hidden"
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.3 }}
     >
-      <div className="text-sm font-medium text-foreground mb-4">June 2024</div>
-      <div className="grid grid-cols-7 gap-1 text-xs text-center">
+      {/* Mini calendar */}
+      <div className="flex items-center gap-3 mb-4">
+        <Calendar className="w-5 h-5 text-primary" />
+        <span className="text-sm font-medium text-foreground">June 2024</span>
+      </div>
+      <div className="grid grid-cols-7 gap-1 text-xs text-center mb-5">
         {["S", "M", "T", "W", "T", "F", "S"].map((d, i) => (
-          <span key={i} className="text-muted-foreground py-1 font-medium">{d}</span>
+          <span key={i} className="text-muted-foreground py-0.5 font-medium">{d}</span>
         ))}
         {Array.from({ length: 30 }, (_, i) => (
-          <span 
-            key={i} 
-            className={`py-1 rounded-full transition-colors ${
-              [14, 17, 21].includes(i) 
-                ? "bg-primary text-primary-foreground font-medium" 
-                : "text-foreground hover:bg-muted"
+          <span
+            key={i}
+            className={`py-0.5 rounded-full text-[11px] ${
+              [14, 17, 21].includes(i)
+                ? "bg-primary text-primary-foreground font-medium"
+                : i === 9
+                ? "bg-accent text-accent-foreground"
+                : "text-foreground"
             }`}
           >
             {i + 1}
           </span>
         ))}
+      </div>
+
+      {/* Upcoming events */}
+      <div className="space-y-2 mb-5">
+        {[
+          { name: "Wedding – Lior & Noa", date: "Jun 15", color: "bg-primary" },
+          { name: "Portrait – Cohen Family", date: "Jun 18", color: "bg-accent" },
+        ].map((ev, i) => (
+          <motion.div
+            key={i}
+            className="flex items-center gap-3 p-2.5 bg-muted/30 rounded-sm"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ delay: i * 0.1, duration: 0.3 }}
+          >
+            <span className={`w-2 h-8 rounded-full ${ev.color}`} />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-foreground truncate">{ev.name}</p>
+              <p className="text-xs text-muted-foreground">{ev.date}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Clients row */}
+      <div className="flex items-center gap-3 mb-5">
+        <User className="w-4 h-4 text-muted-foreground" />
+        <span className="text-xs font-medium text-foreground">Recent Clients</span>
+        <div className="flex -space-x-2 ms-auto">
+          {images.slice(0, 3).map((img, i) => (
+            <div key={i} className="w-8 h-8 rounded-full overflow-hidden border-2 border-card">
+              <img src={img} alt="" className="w-full h-full object-cover" />
+            </div>
+          ))}
+          <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-xs text-muted-foreground border-2 border-card">
+            +5
+          </div>
+        </div>
+      </div>
+
+      {/* Invoices */}
+      <div>
+        <div className="flex items-center gap-2 mb-3">
+          <FileText className="w-4 h-4 text-muted-foreground" />
+          <span className="text-xs font-medium text-foreground">Recent Invoices</span>
+        </div>
+        <div className="space-y-2">
+          {[
+            { client: "Lior & Noa", amount: "₪4,200", status: "Paid" },
+            { client: "Cohen Family", amount: "₪1,800", status: "Pending" },
+          ].map((inv, i) => (
+            <motion.div
+              key={i}
+              className="flex items-center justify-between p-2.5 bg-muted/20 rounded-sm"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 + i * 0.1, duration: 0.3 }}
+            >
+              <div>
+                <p className="text-sm text-foreground">{inv.client}</p>
+                <p className="text-xs text-muted-foreground">{inv.amount}</p>
+              </div>
+              <span className={`text-xs px-2 py-0.5 rounded-full ${
+                inv.status === "Paid"
+                  ? "bg-primary/10 text-primary"
+                  : "bg-accent text-accent-foreground"
+              }`}>
+                {inv.status}
+              </span>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </motion.div>
   </div>
