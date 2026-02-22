@@ -61,7 +61,7 @@ const FeaturesSection = () => {
                   </div>
 
                   {/* Mockup */}
-                  <div className="flex-1 w-full max-w-lg lg:max-w-none">
+                  <div className="flex-1 w-full max-w-xl lg:max-w-none lg:scale-[1.2] lg:origin-center">
                     <FeatureMockup type={feature.mockupType} images={feature.images} />
                   </div>
                 </div>
