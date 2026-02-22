@@ -25,6 +25,7 @@ const Header = () => {
 
   const navLinks = [
     { label: t.header.sampleGalleries, href: "/gallery" },
+    { label: t.header.photographers || "Photographers", href: "/photographers" },
     { label: t.header.pricing, href: "/pricing" },
     { label: t.header.faq, href: "#faq" },
   ];
