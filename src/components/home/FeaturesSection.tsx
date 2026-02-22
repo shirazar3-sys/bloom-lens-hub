@@ -42,7 +42,7 @@ const FeaturesSection = () => {
           <div key={feature.id} className={`${bgColor} py-24 md:py-32`}>
             <AnimatedSection className="w-full max-w-[1600px] mx-auto px-4 md:px-8">
               <div id={feature.id} className="scroll-mt-24">
-                <div className={`flex flex-col ${isReversed ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12 lg:gap-20`}>
+                <div className={`flex flex-col ${isReversed ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-16 lg:gap-28`}>
                   {/* Content */}
                   <div className={`flex-1 text-center ${isRTL ? 'lg:text-right' : 'lg:text-left'}`}>
                     <span className="text-xs tracking-[0.2em] text-muted-foreground uppercase mb-4 block">
