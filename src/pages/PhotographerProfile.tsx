@@ -149,7 +149,7 @@ const PhotographerProfile = () => {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: index * 0.08 }}
-                  className="relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer group"
+                  className="relative aspect-[4/3] rounded-sm overflow-hidden cursor-pointer group"
                   onClick={() => setSelectedPhoto(index)}
                 >
                   <img
