@@ -4,7 +4,7 @@ import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { photographers } from "@/data/photographers";
-import { MapPin, Star, Heart, ArrowLeft, Mail, Globe, Camera } from "lucide-react";
+import { MapPin, Star, Heart, ArrowLeft, Mail, Camera, Phone, Instagram, Facebook } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 
@@ -19,9 +19,9 @@ const PhotographerProfile = () => {
       <div className="min-h-screen bg-background">
         <Header />
         <main className="pt-24 pb-16 container mx-auto px-6 text-center">
-          <h1 className="text-2xl font-serif font-bold mb-4">Photographer not found</h1>
+          <h1 className="text-2xl font-serif font-bold mb-4">הצלם לא נמצא</h1>
           <Link to="/photographers">
-            <Button variant="outline">Back to directory</Button>
+            <Button variant="outline">חזרה לרשימה</Button>
           </Link>
         </main>
         <Footer />
@@ -40,7 +40,7 @@ const PhotographerProfile = () => {
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to directory
+            חזרה לרשימה
           </Link>
 
           {/* Profile Header */}
@@ -77,7 +77,7 @@ const PhotographerProfile = () => {
                   </div>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                   <Button
                     variant={saved ? "default" : "outline"}
                     size="default"
@@ -85,12 +85,36 @@ const PhotographerProfile = () => {
                     onClick={() => setSaved(!saved)}
                   >
                     <Heart className={`w-4 h-4 ${saved ? "fill-current" : ""}`} />
-                    {saved ? "Saved" : "Save"}
+                    {saved ? "נשמר" : "שמור"}
                   </Button>
-                  <Button variant="hero" size="default" className="gap-2">
-                    <Mail className="w-4 h-4" />
-                    Contact
-                  </Button>
+                  {photographer.instagram && (
+                    <Button variant="outline" size="icon" asChild>
+                      <a href={photographer.instagram} target="_blank" rel="noopener noreferrer" aria-label="אינסטגרם">
+                        <Instagram className="w-4 h-4" />
+                      </a>
+                    </Button>
+                  )}
+                  {photographer.facebook && (
+                    <Button variant="outline" size="icon" asChild>
+                      <a href={photographer.facebook} target="_blank" rel="noopener noreferrer" aria-label="פייסבוק">
+                        <Facebook className="w-4 h-4" />
+                      </a>
+                    </Button>
+                  )}
+                  {photographer.email && (
+                    <Button variant="outline" size="icon" asChild>
+                      <a href={`mailto:${photographer.email}`} aria-label="דוא״ל">
+                        <Mail className="w-4 h-4" />
+                      </a>
+                    </Button>
+                  )}
+                  {photographer.phone && (
+                    <Button variant="outline" size="icon" asChild>
+                      <a href={`tel:${photographer.phone}`} aria-label="טלפון">
+                        <Phone className="w-4 h-4" />
+                      </a>
+                    </Button>
+                  )}
                 </div>
               </div>
 
@@ -107,7 +131,7 @@ const PhotographerProfile = () => {
               </div>
 
               <div className="flex items-center gap-2 pt-3 border-t border-border/50">
-                <span className="text-sm text-muted-foreground">Starting from</span>
+                <span className="text-sm text-muted-foreground">החל מ-</span>
                 <span className="text-xl font-bold text-foreground font-sans">
                   {photographer.currency}{photographer.startingPrice.toLocaleString()}
                 </span>
@@ -117,7 +141,7 @@ const PhotographerProfile = () => {
 
           {/* Portfolio Gallery */}
           <div>
-            <h2 className="text-2xl font-serif font-bold text-foreground mb-6">Portfolio</h2>
+            <h2 className="text-2xl font-serif font-bold text-foreground mb-6">תיק עבודות</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {photographer.portfolio.map((photo, index) => (
                 <motion.div
