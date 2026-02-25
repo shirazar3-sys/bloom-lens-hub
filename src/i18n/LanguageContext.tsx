@@ -11,7 +11,14 @@ interface LanguageContextType {
   isRTL: boolean;
 }
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+const fallbackContext: LanguageContextType = {
+  language: "en",
+  setLanguage: () => {},
+  t: en,
+  isRTL: false,
+};
+
+const LanguageContext = createContext<LanguageContextType>(fallbackContext);
 
 const translations: Record<Language, Translations> = { en, he };
 
@@ -37,8 +44,4 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useLanguage = () => {
-  const context = useContext(LanguageContext);
-  if (!context) throw new Error("useLanguage must be used within LanguageProvider");
-  return context;
-};
+export const useLanguage = () => useContext(LanguageContext);
