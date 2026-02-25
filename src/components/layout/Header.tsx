@@ -28,7 +28,6 @@ const Header = () => {
     { label: t.header.photographers || "Photographers", href: "/photographers" },
     { label: t.header.pricing, href: "/pricing" },
     { label: t.header.faq, href: "#faq" },
-    { label: "🎨 סגנונות כפתורים", href: "/button-demo" },
   ];
 
   const handleMouseEnter = () => {

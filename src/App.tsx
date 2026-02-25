@@ -11,7 +11,6 @@ import Pricing from "./pages/Pricing";
 import Photographers from "./pages/Photographers";
 import PhotographerProfile from "./pages/PhotographerProfile";
 import NotFound from "./pages/NotFound";
-import ButtonStyleDemo from "./pages/ButtonStyleDemo";
 
 const queryClient = new QueryClient();
 
@@ -39,7 +38,6 @@ const App = () => {
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/photographers" element={<Photographers />} />
             <Route path="/photographers/:id" element={<PhotographerProfile />} />
-            <Route path="/button-demo" element={<ButtonStyleDemo />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
